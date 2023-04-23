@@ -2,110 +2,15 @@
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { lyraStore, wickStore, remathStore, remechanicsStore, ranpStore, pcStore, thunderbirdStore, celStore, razzlyStore, liceStore, deldStore, breezyStore, vetalaStore, folidarStore, baamStore, figmentStore } from '$lib/utils/stores.js'
     import { get } from 'svelte/store';
+    export let data;
     //console.log($lyraStore.hp)
     let storeMap = new Map([['DaddyWick:', wickStore] , ['Lyramis:', lyraStore], ['Remath:', remathStore], ['The25thBaam:', baamStore], ['Folidar:', folidarStore], ['Razzly:', razzlyStore], ['Vetala:', vetalaStore], ['McBreezy:', breezyStore], ['Remechanics:', remechanicsStore], ['Ranperre:', ranpStore], ['ProfessorCat:', pcStore], ['Thunderbird:', thunderbirdStore], ['Celerity:', celStore], ['Lice:', liceStore], ['Deldaron:', deldStore], ['Addled Figment', figmentStore]]);
-    let dataObj = {
-        'DaddyWick:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Folidar:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Remath:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Celerity:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Lyramis:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Lice:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Vetala:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Addled Figment:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Deldaron:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Remechanics:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Ranperre:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'McBreezy:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'ProfessorCat:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Thunderbird:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'Razzly:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        },
-        'The25thBaam:': {
-            hp: 0,
-            ar: 0,
-            lastHp:0,
-            lastAr:0
-        }
-    }
+    let dataObj = data.data
+    console.log(dataObj)
     let listOfPlayers = Object.keys(dataObj)
     console.log(listOfPlayers)
     let q = []
-    export let data;
+    
     import ioClient from 'socket.io-client'
     let testList = ['DaddyWick']
     const socket = ioClient()
