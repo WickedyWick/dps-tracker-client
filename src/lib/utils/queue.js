@@ -1,3 +1,4 @@
+import { db } from "../";
 export class Queue {
     constructor(sleep) {
       this.items = {};
@@ -43,24 +44,37 @@ export class Queue {
           for (let j =0; j< data.length; j++) {
             try {
               console.log(`processing: ${data[j]}`)
-              const msgSplit = data[j].split('.')[0].split(' ')
-              let hIndex = -1
-              let aIndex = -1
-              if (msgSplit.length == 7) {
-                for ( let i = 0; i < msgSplit.length; i++) {
-                    if (msgSplit[i] == 'health')
-                        hIndex = i
-                    else if (msgSplit[i] == 'armor')
-                        aIndex = i
+              let splitArr = data[j].split(' ')
+              let player = data[j].split(':')[0] ?? ''
+              if (player == '')
+                  continue
+              let hp = 0
+              let ar = 0;
+              for (let j = 0; j< splitArr.length; j++) {
+                if (splitArr[j] == 'health') {
+                    hp = Number.parseInt(splitArr[j-1]) || 0
+                    continue
+                } 
+                 
+                if (splitArr[j] == 'armor') {
+                    ar = Number.parseInt(splitArr[j-1]) || 0
                 }
-                let hpDmg = msgSplit[1]
-                let arDmg = msgSplit[4]
-                let player = msgSplit[0]
-                console.log(player)
-                dataToSend.set(player, { hp: hpDmg, ar: arDmg})
+              }
+              if (!dataToSend.has(player))
+                dataToSend.set(player, { hp: hp, ar: ar })
+              else {
+                const dData = dataToSend.get(player)
+                dData.hp = dData.hp + hp
+                dData.ar = dData.ar + ar
+                dataToSend.set(player, dData)
                 
-              } else {
-                  console.log(`Invalid autopsy case: ${data[j]}`)
+                const dbRecord = db.getPlayer(player)
+                dbRecord.hp = dbRecord.hp + hp
+                dbRecord.ar = dbRecord.ar + ar
+                dbRecord.lastAr = ar
+                dbRecord.lastHp = hp
+                db.setPlayer(player, dbRecord)
+                //console.log(db.get(player))
               }
             } catch(err) {
               console.error(`Error : ${err}\nMsg: ${data[j]}`)
@@ -72,5 +86,4 @@ export class Queue {
         }
       }
     }
-
 }

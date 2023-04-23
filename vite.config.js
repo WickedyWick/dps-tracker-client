@@ -1,8 +1,10 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { Server } from 'socket.io';
-import { Queue } from "./src/lib/utils/queue" 
-import { Socket } from 'socket.io-client';
+import { Queue } from './src/lib/utils/queue'
+import { clearDb } from "./src/lib/crappyDb"
+
+
 export default defineConfig({
 	plugins: [sveltekit(),
 	{
@@ -23,6 +25,9 @@ export default defineConfig({
 				})
 				socket.on('register:dps', () => {
 					socket.join('dps')
+				})
+				socket.on('reset', () => {
+					clearDb()
 				})
 			})
 		}
