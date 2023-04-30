@@ -1,7 +1,9 @@
 /** @type {import('./$types').PageServerLoad} */
 //import { db } from '$lib';
+import { getDataForRoom } from '../../lib/utils/service';
 export async function load() {
-    return {
+    return {};
+    /*return {
         data: {
         'DaddyWick': {
             hp: 0,
@@ -105,7 +107,8 @@ export async function load() {
             lastHp:0,
             lastAr:0
         }
-    }}
+    }}*/
+
 };
 
 export const ssr = true;
