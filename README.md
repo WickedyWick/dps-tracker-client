@@ -39,3 +39,17 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+
+### Logic
+
+DB keys names
+Password for room -> {roomId}:pwd SET
+used to generate unique incremented Ids -> idTracker
+Track of player damage in a dungeon -> {playerName}:{roomId}
+List of players in the room -> plst:${roomId}
+
+sockets
+{roomId}:{pwd} -> dps client socket room
+
+pwd min 4 letters long

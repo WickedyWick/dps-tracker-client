@@ -1,4 +1,5 @@
-import { db } from "../";
+import { redisDb } from "../server/rdb";
+import { updateDps } from "./service";
 export class Queue {
     constructor(sleep) {
       this.items = {};
@@ -38,6 +39,8 @@ export class Queue {
           if (!data) continue
           if (data.length <= 0) continue
           const socket = queueObj.socket
+          const roomId = queueObj.roomId
+          const pwd = queueObj.pwd
           //['DaddyWick', 'Lyramis', 'Remath', 'Remechanics', 'Ranperre', 'ProfessorCat', 'Thunderbird', 'Celerity', 'Lice', 'Deldaron', 'McBreezy', 'Vetala', 'Razzly', 'Folidar', 'The25thBaam']
           //let dataToSend = new Map([['DaddyWick:', { hp: 0, ar: 0 }] , ['Lyramis:', { hp: 0, ar: 0 }], ['Remath:', { hp: 0, ar: 0 }], ['The25thBaam:', { hp: 0, ar: 0 }], ['Folidar:', { hp: 0, ar: 0 }], ['Razzly:', { hp: 0, ar: 0 }], ['Vetala:', { hp: 0, ar: 0 }], ['McBreezy:', { hp: 0, ar: 0 }], ['Remechanics:', { hp: 0, ar: 0 }], ['Ranperre:', { hp: 0, ar: 0 }], ['ProfessorCat:', { hp: 0, ar: 0 }], ['Thunderbird:', { hp: 0, ar: 0}], ['Celerity:', { hp: 0, ar: 0 }], ['Lice:', { hp: 0, ar: 0 }], ['Deldaron:', { hp: 0, ar: 0 }]]);
           let dataToSend = new Map()
@@ -68,21 +71,17 @@ export class Queue {
                 dData.ar = dData.ar + ar
                 dataToSend.set(player, dData)
                 
-                const dbRecord = db.getPlayer(player)
-                dbRecord.hp = dbRecord.hp + hp
-                dbRecord.ar = dbRecord.ar + ar
-                dbRecord.lastAr = ar
-                dbRecord.lastHp = hp
-                db.setPlayer(player, dbRecord)
+                
                 //console.log(db.get(player))
               }
+              updateDps(player, roomId, hp, ar)
             } catch(err) {
               console.error(`Error : ${err}\nMsg: ${data[j]}`)
             }
           }
 
           let json = JSON.stringify(Object.fromEntries(dataToSend))
-          socket.to('dps').emit('dps:update', json)
+          socket.to(`${roomId}:${pwd}`).emit('dps:update', json)
         }
       }
     }
