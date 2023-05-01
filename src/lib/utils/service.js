@@ -38,7 +38,7 @@ export const createRoom = async(pwd, playerListString) => {
         for (let i = 0; i< playerList.length; i++) {
             let playerName = playerList[i].trim()
             if (playerName != '') {
-                await redisDb.rPush(`plst:${roomId}`, palyerName)
+                await redisDb.rPush(`plst:${roomId}`, playerName)
                 await redisDb.hSet(`${playerName}:${roomId}`, {
                     hp: 0,
                     ar: 0,
