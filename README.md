@@ -1,21 +1,17 @@
 # dps-client
-client for dps tracking
+Web server that acts like socket server and serves svelte pages that display changes from dps-tracker-local(https://github.com/WickedyWick/dps-tracker-local) in real time.
+
+Can create room with password on /CreateRoom route
+Access room on /Track (optional params are Id and Pwd that automatically auths you and show data)
+Can be used as overlay on OBS on /TrackObs (same optional params)
+
+# Dependencies
+Redis db
+Redis database is used to store dps and room data that can be retrieved at any time
 
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
 
 ## Developing
 
@@ -39,17 +35,3 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-
-### Logic
-
-DB keys names
-Password for room -> {roomId}:pwd SET
-used to generate unique incremented Ids -> idTracker
-Track of player damage in a dungeon -> {playerName}:{roomId}
-List of players in the room -> plst:${roomId}
-
-sockets
-{roomId}:{pwd} -> dps client socket room
-
-pwd min 4 letters long
