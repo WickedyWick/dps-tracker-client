@@ -31,7 +31,6 @@ export class Queue {
     async startQueue() {
       while(true) {
         if (this.size == 0) {
-            console.log('sleeping') 
             await new Promise(r => setTimeout(r, this.sleep));
         } else {
           const queueObj = this.dequeue()

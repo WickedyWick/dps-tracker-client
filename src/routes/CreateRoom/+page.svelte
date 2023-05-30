@@ -57,8 +57,8 @@
 </script>
 <Input placeholder="Enter password for the room..." bind:value={pwd}/>
 <small hidden={!iPwd}>Password must be at 4 characters, your password has {pwd.length}</small>
-<Input placeholder="Enter players in player1;player2;player3 etc format" bind:value={playerList}/>
-<small>When entering multiple players do it as in  <i><b>player1;player2;player3</b></i> format. Player names must be same as their ingame names and are case sensitive.</small>
+<Input placeholder="Enter players in player1|player2|player3 etc format" bind:value={playerList}/>
+<small>When entering multiple players do it as in  <i><b>player1|player2|player3</b></i> format. Player names must be same as their ingame names and are case sensitive.</small>
 <small hidden={!iPlst}>Playerlist can't be empty</small>
 <Button on:click={createRoom}>Create Room</Button>
 <Button on:click={() => window.location.href="/Track"}>Join Room</Button>

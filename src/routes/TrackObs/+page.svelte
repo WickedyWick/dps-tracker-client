@@ -88,43 +88,7 @@
   <input placeholder="Room password..." type="text" bind:value={pwd}>
   <button type="button" on:click={login}>Join Room</button>
   {:else}
-    <Table>
-        <TableHead>
-        <TableHeadCell>Player</TableHeadCell>
-        <TableHeadCell>Health</TableHeadCell>
-        <TableHeadCell>Armor</TableHeadCell>
-        </TableHead>
-        <TableBody class="divide-y">
-            {#each listOfPlayers as p}
-                <TableBodyRow>
-                    <TableBodyCell>{p}</TableBodyCell>
-                    <TableBodyCell>{Number(dataObj[p].hp).toLocaleString('en', { useGrouping: true })} ({dataObj[p].lastHp})</TableBodyCell>
-                    <TableBodyCell>{Number(dataObj[p].ar).toLocaleString('en', { useGrouping: true })} ({dataObj[p].lastAr})</TableBodyCell>
-                </TableBodyRow>
-            {/each}
-        </TableBody>
-    </Table>
-  {/if}
-    <!--
     {#each listOfPlayers as p}
-        {@const item = get(storeMap.get(p))}
-        <TableBodyRow>
-            <TableBodyCell>{p}</TableBodyCell>
-            
-            <TableBodyCell>{item.hp}</TableBodyCell>
-            <TableBodyCell>{item.ar}</TableBodyCell>
-        </TableBodyRow>
-    {/each}
-    -->
-    <!--
-      <TableBodyRow>
-        <TableBodyCell>DaddyWick</TableBodyCell>
-        <TableBodyCell>{hDw}</TableBodyCell>
-        <TableBodyCell>{aDw}</TableBodyCell>
-      </TableBodyRow>
-      <TableBodyRow>
-        <TableBodyCell>Lice</TableBodyCell>
-        <TableBodyCell>{hLice}</TableBodyCell>
-        <TableBodyCell>{aLice}</TableBodyCell>
-      </TableBodyRow>
-     -->
+        <p style="color:white; font-size:36px">{p}: {Number(dataObj[p].hp).toLocaleString('en', { useGrouping: true })}HP {Number(dataObj[p].ar).toLocaleString('en', { useGrouping: true })}AR</p>
+    {/each} 
+  {/if}
