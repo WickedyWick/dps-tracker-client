@@ -17,7 +17,7 @@ export default defineConfig({
 				console.log('connection')
 				try {
 					socket.on('createRoom', async({pwd, playerList}) => {
-						
+						console.log('createroom', pwd, playerList)
 						const id = await createRoom(pwd, playerList)
 						if (id == -1)
 							socket.emit('error')
@@ -29,6 +29,7 @@ export default defineConfig({
 						//console.log(`Data: ${dataToSend}`)
 						// auth prob not needed due to unique roomid:pwd socket rooms
 						// but we keep it so we dont insert whatever data in the db
+						console.log(dataToSend, roomId, pwd)
 						const isAuth = await auth(roomId, pwd)
 						if (!isAuth)
 							socket.emit('error', 'Invalid room/pwd config')

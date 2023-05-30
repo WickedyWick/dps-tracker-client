@@ -32,7 +32,7 @@ export const createRoom = async(pwd, playerListString) => {
             return -1;
         }
         const roomId = await redisDb.hIncrBy('idTracker', 'num', 1)
-        const playerList = playerListString.split(';')
+        const playerList = playerListString.split('|')
         await redisDb.set(`${roomId}:pwd`, pwd)
         
         for (let i = 0; i< playerList.length; i++) {
